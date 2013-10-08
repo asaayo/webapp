@@ -1,0 +1,55 @@
+/* 
+    Document   : mobile
+    Created on : Oct 2, 2013, 7:34:20 PM
+    Author     : Brandon
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+    
+}
+
+body{
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#header > p{
+    display:none;
+}
+#headerbar > *{
+    margin-top: 10px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    text-decoration: none;
+    text-align: center;
+    border-top: 1px solid #FFFFFF;
+    background: #9e7575;
+    background: -webkit-gradient(linear, left top, left bottom, from(#9c3e3e), to(#9e7575));
+    background: -webkit-linear-gradient(top, #9c3e3e, #9e7575);
+    background: -moz-linear-gradient(top, #9c3e3e, #9e7575);
+    background: -ms-linear-gradient(top, #9c3e3e, #9e7575);
+    background: -o-linear-gradient(top, #9c3e3e, #9e7575);
+    color: white;
+    font-size: 45px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+#mainbody > p{
+    display:none;
+}
+#mainbody > form{
+    font-size:45px;
+    display:inline;
+    text-align: center;
+}
+#inputbox{
+    font-size:45px;
+}
+#footerbar{
+    display:none;
+}

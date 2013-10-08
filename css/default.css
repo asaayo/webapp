@@ -1,0 +1,81 @@
+/* 
+    Document   : default
+    Created on : Oct 2, 2013, 6:17:11 PM
+    Author     : Brandon
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+}
+
+body{
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
+    overflow-x:hidden;
+    font-family:"Titillium Web", "Arial", "Helvetica", "Sans-serif";
+    margin-bottom: 100px;
+}
+#header{
+    margin-left:auto;
+    margin-right:auto;
+}
+#header > p{
+    color:white;
+    font-weight: bolder;
+    line-height:10px;
+}
+#headerbar{
+    background-color:#000000;
+    color:#FFFFFF;
+    height:35px;
+    text-align:center;
+}
+#headerbar > *{
+    width:10%;
+    color:#FFFFFF;
+    text-decoration:none;
+    float:left;
+    line-height:35px;
+    font-size:20px;
+    margin:auto;
+}
+#mainbody{
+    
+    height:650px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right: 20px;
+    box-shadow:-2px  0px  10px 5px #000000;
+}
+#mainbody > img{
+    height:400px;
+}
+#footerbar{
+    width:80%;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    background-color: #000000;
+    color:#FFFFFF;
+    line-height: 25px;
+}
+.extendfull, .extendleft
+{
+    margin-left: -200px;
+    padding-left: 200px;
+}
+
+.extendfull, .extendright
+{
+    margin-right: -200px;
+    padding-right: 200px;
+}
+.righty{
+    float:right;
+}
+.lefty{
+    float:left;
+}
+
