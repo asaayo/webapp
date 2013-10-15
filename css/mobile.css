@@ -14,10 +14,25 @@ body{
     width:80%;
     margin-left: auto;
     margin-right: auto;
+    font-size:45px;
 }
 #header > p{
     display:none;
 }
+#headerbar > *{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding:10px;
+    border-radius: 1em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*
 #headerbar > *{
     margin-top: 10px;
     display:block;
@@ -39,13 +54,16 @@ body{
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
 }
+*/
 #mainbody > p{
     display:none;
 }
 #mainbody > form{
-    font-size:45px;
     display:inline;
     text-align: center;
+}
+#latitude, #longitude, #findme{
+    font-size:40px;
 }
 #inputbox{
     font-size:45px;

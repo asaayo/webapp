@@ -16,7 +16,7 @@
         </div>
         <div id="headerbar" class="extendfull">
             <a href="index.php">Main page</a>
-            <a href="">Link 2</a>
+            <a href="webapp.php">Web App</a>
             <a href="">Link 3</a>
         </div>
         <div id="mainbody">

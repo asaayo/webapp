@@ -25,15 +25,29 @@
             function foundLocation(position){
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
-                document.getElementById("Latitude").value=lat;
-                document.getElementById("Longitude").value=lon;
+                document.getElementById("latitude").value=lat;
+                document.getElementById("longitude").value=lon;
                 var url = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=12&size=400x400&sensor=false&";
                 url += "markers=color:red%7C" + lat + "," + lon;
                 document.getElementById("Map").src = url;
             }
             //else noLocation is used
             function noLocation(){
-                alert('Location information unavailable');
+                switch(error.code)
+                {
+                    case error.PERMISSION_DENIED:
+                        alert("User denied Geolocation request.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information unavailable");
+                        break;
+                    case error.TIMEOUT:
+                        alert("The request for user information timed out");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("An unknown error occurred");
+                        break;
+                }
             }
         </script>
     </head>
@@ -45,23 +59,16 @@
         <div id="headerbar" class="extendfull">
             <a href="index.php">Main page</a>
             <a href="webapp.php">WebApp</a>
-            <a href="">Link 3</a>
+            <a href="assets/resume.pdf">R&eacute;sum&eacute;</a>
         </div>
         <div id="mainbody">
+            <p>
+                This part of the application gets user location via HTML5's geolocation
+            </p>
             <form>
-                Phone number:<input type='text' name='phoneno' id='inputbox' size='9'><br/>
-                Carrier:
-                <select id='inputbox'>
-                    <option value='ATT'>AT&AMP;T</option>  
-                    <option value='VZ'>Verizon</option>
-                    <option value='SP'>Sprint</option>
-                </select>
-                <br/>
-                <input type="text" name="Latitude" id="Latitude" value="">
-                <br/>
-                <input type="text" name="Longitude" id="Longitude" value="">
-                <br/>
-                <input type="button" value='Find Me' onclick='javascript:findLocation();'/>
+                Latitude:<input type="text" name="Latitude" id="latitude" value=""><br/>
+                Longitude:<input type="text" name="Longitude" id="longitude" value=""><br/>
+                <input type="button" value='Find Me' id='findme' onclick='javascript:findLocation();'/><br/>
                 <img id ="Map" src="" />
             </form>
             
