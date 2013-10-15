@@ -17,7 +17,7 @@
         <div id="headerbar" class="extendfull">
             <a href="index.php">Main page</a>
             <a href="webapp.php">Web App</a>
-            <a href="">Link 3</a>
+            <a href="assets/resume.pdf">R&eacute;sum&eacute;</a>
         </div>
         <div id="mainbody">
             <p>
