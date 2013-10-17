@@ -33,11 +33,16 @@
             function foundLocation(position){
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
+                var loc1 = lat+","+lon;
+                var lat2 = <?= $info['latitude'];?>;
+                var lon2 = <?= $info['longitude'];?>;
+                var loc2 = lat2+","+lon2;
                 document.getElementById("latitude").value=lat;
                 document.getElementById("longitude").value=lon;
-                var url = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=12&size=400x400&sensor=false&";
-                url += "markers=color:red%7C" + lat + "," + lon;
-                document.getElementById("Map").src = url;
+                var url1 = "http://maps.googleapis.com/maps/api/staticmap?center=" + loc1 + "&zoom=12&size=400x400&sensor=false&markers=color:red%7C" + loc1;
+                var url2 = "http://maps.googleapis.com/maps/api/staticmap?center=" + loc2 + "&zoom=12&size=400x400&sensor=false&markers=color:red%7C" + loc2;
+                document.getElementById("map1").src = url1;
+                document.getElementById("map2").src = url2;
             }
             //else noLocation is used
             function noLocation(){
@@ -73,11 +78,15 @@
             <p>
                 This part of the application gets user location via HTML5's geolocation
             </p>
+            <p class="righty">
+                For reference, this image uses IP geolocation
+            </p>
             <form>
                 Latitude:<input type="text" name="Latitude" id="latitude" value=""><br/>
                 Longitude:<input type="text" name="Longitude" id="longitude" value=""><br/>
                 <input type="button" value='Find Me' id='findme' onclick='javascript:findLocation();'/><br/>
-                <img id ="Map" src="" />
+                <img id="map1" class="lefty" src="" />
+                <img id="map2" class="righty" src="" />
             </form>
             
         </div>
