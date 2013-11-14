@@ -66,7 +66,7 @@
     </head>
     <body>
         <div id="header">
-       	<h1 class="left">A website by a guy</h1>
+               <h1 class="left">A website by a guy</h1>
         <p class="righty">An experience in webdev</p>
         </div>
         <div id="headerbar" class="extendfull">
