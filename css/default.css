@@ -41,7 +41,7 @@ body{
     font-size:20px;
     margin:auto;
 }
-#mainbody{
+.mainbody{
     width:80%;
     height:650px;
     padding-top:20px;
