@@ -29,7 +29,11 @@ if(mysqli_connect_errno($connection)){
 }
 //creates the actual sms request and sends it off 
 $sms = $client->account->messages->sendMessage($twiliono, $userno, "Reservation request for $name, confirm? (reply with C or c)");
+//make sure they're not already in the table
+mysqli_query($connection, "DELETE * FROM temp t WHERE t.username=$userno");
 //inserts info into temp table awaiting confirmation
+$time = date('H:i:s');
 mysqli_query($connection,"INSERT INTO temp (username)
-        VALUES ($userno)");
+    VALUES ($userno)");
+mysqli_close($connection);
 ?>

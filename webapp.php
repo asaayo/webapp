@@ -36,10 +36,10 @@
                 <input type="hidden" name="Latitude" id="latitude" value="">
                 <input type="hidden" name="Longitude" id="longitude" value="">
             </form>
-            <div id="placesMap" style="width:80%; clear:both; margin-left: auto; margin-right: auto; height:600px;"></div>
-            <form>
+            <div id="placesMap" class="center"></div>
+            <form id="mobilenumber" class="center">
                 Mobile Number:<input type="text" id='cell'/>
-                <input type="button" name="reserve" value="Reserve" style="margin-left:auto; margin-right:auto;" onClick="makeReservation()"/>
+                <input type="button" name="reserve" value="Reserve" class="center" onClick="makeReservation()"/>
             </form>
         </div>
         
