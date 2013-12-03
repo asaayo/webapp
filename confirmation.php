@@ -1,5 +1,6 @@
 <?php
-error_reporting(-1);
+//connection information
+require "phplib/db.php";
 //Twilio replies are XML based
 header("content-type: text/xml");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -10,14 +11,6 @@ $FROM = substr($FROM,2);
 //Body is the message
 $BODY = $_POST['Body'];
 $msg = "Timeout";
-//db information
-$user = "asaayo_default";
-$pw = "KfFsrKHV%36&";
-$table = "asaayo_numbers";
-$connection = mysqli_connect("localhost", $user, $pw, $table);
-if(mysqli_connect_errno($connection)){
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 //Get the values in the table corresponding to the from number
 $result = mysqli_query($connection,"SELECT * FROM temp WHERE username = $FROM");
 //Make sure they're IN the table
