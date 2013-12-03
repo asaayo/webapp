@@ -1,4 +1,6 @@
 <?php
+//contains DB connection stuff
+require "phplib/db.php";
 //required for twilio (SMS service) to function
 require "../twilio-php-master/Services/Twilio.php";
 //account information for twilio
@@ -17,16 +19,8 @@ $no = $_POST['number'];
 $id = $_POST['identifier'];
 //user's phone number, used to send text message
 $userno = $_POST['user'];
-//the service's phone number
+//"MY" phone number
 $twiliono = "484-240-4354";
-//db information
-$user = "asaayo_default";
-$pw = "KfFsrKHV%36&";
-$table = "asaayo_numbers";
-$connection = mysqli_connect("localhost", $user, $pw, $table);
-if(mysqli_connect_errno($connection)){
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 //creates the actual sms request and sends it off 
 $sms = $client->account->messages->sendMessage($twiliono, $userno, "Reservation request for $name, confirm? (reply with C or c)");
 //make sure they're not already in the table

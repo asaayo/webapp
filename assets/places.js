@@ -139,9 +139,7 @@ function makeReservation(){
             //handles user and location data, sends first text message and
             //inputs data into a temporary table
             url: "reservation.php",
-            data: {name: placename, number: placeno, identifier: placeid, user: userno},
-            success: function(data){
-                $("#debug").html(data);}
+            data: {name: placename, number: placeno, identifier: placeid, user: userno}
         }).done(function(msg){
             console.log("Data saved: " + msg);
         });

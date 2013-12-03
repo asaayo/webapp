@@ -27,7 +27,7 @@ if($BODY == "C" || $BODY == "c"){
             mysqli_query($connection, "DELETE FROM temp where username= $FROM");
             //make sure there are no duplicate entries
             //I know there are better ways of doing this but I want to get this working
-            mysqli_query($connection, "DELETE FROM reservation WHERE username = $FROM");
+            mysqli_query($connection, "DELETE FROM reservations WHERE username = $FROM");
             //insert into reservation table
             mysqli_query($connection, "INSERT INTO reservations (username)
                 VALUES ($FROM)");
