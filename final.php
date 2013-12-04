@@ -21,10 +21,10 @@ if($count > 0){
     $sms = $client->account->messages->sendMessage($twiliono, $userno, "Your reservations is ready!");
     mysqli_query($connection, "DELETE FROM reservations WHERE username = $userno" );
     mysqli_query($connection, "INSERT INTO tableready (username) VALUES ($userno)" );
-    echo['Kicked $userno out of the database and sent a message'];
+    echo'Kicked ', $userno, ' out of the database and sent a message';
 }else{
     //They weren't found in the database, should probably refresh
-    echo['$userno isn\'t in the database, glom again.'];
+    echo $userno, ' isn\'t in the database, glom again.';
 }
     
 ?>

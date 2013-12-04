@@ -14,8 +14,9 @@
     <head>
     <title>WebApp</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="css/default.css" media="screen and (min-device-width: 481px)"/>
-        <link rel="stylesheet" type="text/css" href="css/mobile.css" media="only screen and (-webkit-min-device-pixel-ratio: 2)"/>
+        <link rel="stylesheet" type="text/css" href="css/default.css" media="screen and (min-device-width: 481px)">
+        <link rel="stylesheet" type="text/css" href="css/mobile.css" media="only screen and (-webkit-min-device-pixel-ratio: 2)">
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
         <script src="assets/jquery-2.0.3.min.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?&libraries=places&sensor=false&key=AIzaSyA5DJty9iEXMIPtaSzyqoX1lpDdK4GQPyA"></script>
         <script var finalLat = <?= $info['latitude'];?>; var finalLng = <?= $info['longitude'];?>;></script>
@@ -39,7 +40,7 @@
             <div id="placesMap" class="center"></div>
             <form id="mobilenumber" class="center">
                 Mobile Number:<input type="text" id='cell'/>
-                <input type="button" name="reserve" value="Reserve" class="center" onClick="makeReservation()"/>
+                <input id="cell" type="button" name="reserve" value="Reserve" onClick="makeReservation()"/>
             </form>
         </div>
         

@@ -12,49 +12,27 @@ html{
 
 body{
     width:80%;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     font-size:45px;
 }
-#header > p{
+#header{
     display:none;
 }
 #headerbar > *{
-    display:block;
     margin-left:auto;
     margin-right:auto;
     text-align: center;
     text-decoration: none;
     background-color: black;
     color: white;
+    padding-top: 20px;
     padding:10px;
-    border-radius: 1em;
+    border-radius: .25em;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-/*
-#headerbar > *{
-    margin-top: 10px;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    text-decoration: none;
-    text-align: center;
-    border-top: 1px solid #FFFFFF;
-    background: #9e7575;
-    background: -webkit-gradient(linear, left top, left bottom, from(#9c3e3e), to(#9e7575));
-    background: -webkit-linear-gradient(top, #9c3e3e, #9e7575);
-    background: -moz-linear-gradient(top, #9c3e3e, #9e7575);
-    background: -ms-linear-gradient(top, #9c3e3e, #9e7575);
-    background: -o-linear-gradient(top, #9c3e3e, #9e7575);
-    color: white;
-    font-size: 45px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-}
-*/
 #mainbody > p{
     display:none;
 }
@@ -62,7 +40,7 @@ body{
     display:inline;
     text-align: center;
 }
-#latitude, #longitude, #findme{
+#cell, #mobilenumber{
     font-size:40px;
 }
 #inputbox{
@@ -70,4 +48,11 @@ body{
 }
 #footerbar{
     display:none;
+}
+
+#placesMap{
+    margin-top: 20px;
+    width:100%;
+    clear:both;
+    height:800px;
 }
