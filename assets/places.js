@@ -1,13 +1,6 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 var success = false;
 var urlp1="http://maps.googleapis.com/maps/api/staticmap?center=";
 var urlp2="&zoom=12&size=400x400&sensor=true&markers=color:red%7C";
-var finalLat;
-var finalLng;
 var map;
 var service;
 var infowindow;
@@ -32,9 +25,7 @@ function foundLocation(position){
     initialize();
 }
 //else noLocation is used
-function noLocation(){
-    finalLat = finalLat.toFixed(7);
-    finalLng = finalLng.toFixed(7);
+function noLocation(error){
     switch(error.code)
     {
         case error.PERMISSION_DENIED:
@@ -50,6 +41,7 @@ function noLocation(){
             alert("An unknown error occurred");
             break;
     }
+    initialize();
 }
 /*
 function toNext(){
@@ -65,6 +57,7 @@ function toNext(){
 
 //initializes google map and places integration
 function initialize(){
+    console.log(finalLat + " " + finalLng);
     //current location is based on HTML5 geolocation, or if that fails, IP Geolocation
     var curLoc = new google.maps.LatLng(finalLat, finalLng);
     //the actual map, centered on the current location with zoom level
@@ -103,6 +96,14 @@ function createMarker(place){
     var marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location
+    });
+    //right click allows you to recenter the map and resubmit query
+    google.maps.event.addListener(map, "rightclick", function(event) {
+    finalLat = event.latLng.lat();
+    finalLng = event.latLng.lng();
+    // re-init map with new lag/lng
+    console.log(finalLat + " " + finalLng);
+    initialize();
     });
     //adds a listener to the map to get clicks and pull extra details
     //to display when a marker is clicked

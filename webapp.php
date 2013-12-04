@@ -19,8 +19,7 @@
         <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
         <script src="assets/jquery-2.0.3.min.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?&libraries=places&sensor=false&key=AIzaSyA5DJty9iEXMIPtaSzyqoX1lpDdK4GQPyA"></script>
-        <script var finalLat = <?= $info['latitude'];?>; var finalLng = <?= $info['longitude'];?>;></script>
-        <script src="assets/places.js"></script>
+        <script src="assets/places.php"></script>
     </head>
     <body>
         <div id="header">
