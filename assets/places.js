@@ -65,6 +65,14 @@ function initialize(){
         center: curLoc,
         zoom: 13
     });
+    //right click allows you to recenter the map and resubmit query
+    google.maps.event.addListener(map, "rightclick", function(event) {
+    finalLat = event.latLng.lat();
+    finalLng = event.latLng.lng();
+    // re-init map with new lag/lng
+    console.log(finalLat + " " + finalLng);
+    initialize();
+    });
     //the request to be made of google maps
     var request = {
         location: curLoc,
@@ -96,14 +104,6 @@ function createMarker(place){
     var marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location
-    });
-    //right click allows you to recenter the map and resubmit query
-    google.maps.event.addListener(map, "rightclick", function(event) {
-    finalLat = event.latLng.lat();
-    finalLng = event.latLng.lng();
-    // re-init map with new lag/lng
-    console.log(finalLat + " " + finalLng);
-    initialize();
     });
     //adds a listener to the map to get clicks and pull extra details
     //to display when a marker is clicked
