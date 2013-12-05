@@ -25,9 +25,13 @@
                     //debugging!
                     console.log(msg);
                 });
-                //put the data into a string to be stuck to a select list
-                for(x = 0; x < names.length; x++){
-                    thebox+="<option value=\"" + names[x] + "\">" + names[x] + "</option>";
+                if(names === null){
+                    $("#selectlist").find('option').remove().end();
+                }else{
+                    //put the data into a string to be stuck to a select list
+                    for(x = 0; x < names.length; x++){
+                        thebox+="<option value=\"" + names[x] + "\">" + names[x] + "</option>";
+                    }
                 }
                 //jQuery! grab the selectlist
                 $("#selectlist")
