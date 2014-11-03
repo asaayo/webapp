@@ -2,7 +2,7 @@
 //contains DB connection stuff
 require "phplib/db.php";
 //required for twilio (SMS service) to function
-require "../twilio-php-master/Services/Twilio.php";
+require "twilio-php-master/Services/Twilio.php";
 //account information for twilio
 $AccountSid = "AC169d5a950282cc349f94af7987f21c67";
 $AuthToken = "61e010b9fb2fcd0b6b4acd5faf9b0dd2";
@@ -24,10 +24,9 @@ $twiliono = "484-240-4354";
 //creates the actual sms request and sends it off 
 $sms = $client->account->messages->sendMessage($twiliono, $userno, "Reservation request for $name, confirm? (reply with C or c)");
 //make sure they're not already in the table
-mysqli_query($connection, "DELETE * FROM temp t WHERE t.username=$userno");
+$mysqli->query("DELETE * FROM temp t WHERE t.username=$userno");
 //inserts info into temp table awaiting confirmation
 $time = date('H:i:s');
-mysqli_query($connection,"INSERT INTO temp (username)
-    VALUES ($userno)");
-mysqli_close($connection);
+$mysqli->query("INSERT INTO temp (username)VALUES ($userno)");
+$mysqli->close();
 ?>

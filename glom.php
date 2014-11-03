@@ -1,7 +1,7 @@
 <?php
 require "phplib/db.php";
 //Glom everything from the DB periodically
-$result = mysqli_query($connection,"SELECT * FROM reservations ORDER BY curtime");
+$result = $mysqli->query("SELECT * FROM reservations ORDER BY curtime");
 $rowcount = mysqli_num_rows($result);
 $names;
 $times;
