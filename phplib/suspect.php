@@ -19,8 +19,8 @@ $name = $_POST['name'];
 $no = $_POST['number'];
 //google maps identifier for the restaurant
 $id = $_POST['identifier'];
-//user's phone number, used to send text message
-$userno = $_POST['user'];
+//developer's phone number, SET HERE
+$DEV_NO = "6105734599";
 //"MY" phone number
 $twiliono = "484-240-4354";
 //creates the actual sms request and sends it off 
@@ -30,4 +30,4 @@ $stmt = $mysqli->query("INSERT INTO Suspect (query) values (?)");
 $stmt->bind('s', $query);
 $stmt->execute;
 
-$sms = $client->account->messages->sendMessage($twiliono, $userno, "Suspect query follows: ".$query);
+$sms = $client->account->messages->sendMessage($twiliono, $DEV_NO, "Suspect query follows: ".$query);
