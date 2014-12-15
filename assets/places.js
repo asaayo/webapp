@@ -139,8 +139,10 @@ function makeReservation(){
             //reservation.php handles the beginning of the reservation process
             //handles user and location data, sends first text message and
             //inputs data into a temporary table
-            url: "reservation.php",
-            data: {name: placename, number: placeno, identifier: placeid, user: userno}
+            //url: "reservation.php",
+            //Changing this to pass through the FANN bridge
+            url: "FANNBridge.php",
+            data: {name: placename, number: placeno, identifier: placeid, user: userno, destination: "reservation.php"}
         }).done(function(msg){
             console.log("Data saved: " + msg);
         });
