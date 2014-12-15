@@ -23,7 +23,7 @@ testData($entryvalues);
 
 function testData($data){
     $goodurl = $data['destination'];
-    $badurl = "suspect.php";
+    $badurl = "phplib/suspect.php";
     //TODO: implement FANN, use counter to differentiate between variable(s) to test
     $response = http_post_data($goodurl, $entryvalues);
 }
