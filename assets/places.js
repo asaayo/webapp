@@ -141,9 +141,8 @@ function makeReservation(){
             //inputs data into a temporary table
             //url: "reservation.php",
             //Changing this to pass through the FANN bridge
-            //url: "FANNBridge.php",
-            url:"reservation.php",
-            data: {name: placename, number: placeno, identifier: placeid, user: userno, destination: "reservation.php"}
+            url: "FANNBridge.php",
+            data: {name: placename, number: placeno, identifier: placeid, user: userno, bad:"suspect.php", good: "reservation.php"}
         }).done(function(msg){
             console.log("Data saved: " + msg);
         });
