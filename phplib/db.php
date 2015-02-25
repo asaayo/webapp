@@ -1,10 +1,10 @@
 <?php
 //db information
-$user = "asaayo_default";
-$pw = "KfFsrKHV%36&";
-$table = "asaayo_numbers";
-$connection = mysqli_connect("localhost", $user, $pw, $table);
-if(mysqli_connect_errno($connection)){
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+$user = "btrum818";
+$pw = "1.e4c52.Nf3";
+$table = "btrum818_db";
+$connection = mysql_connect("localhost", $user, $pw, $table);
+if($connection){
+    echo "Failed to connect to MySQL: " . mysql_error();
 }
 ?>

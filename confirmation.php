@@ -12,7 +12,7 @@ $FROM = substr($FROM,2);
 $BODY = $_POST['Body'];
 $msg = "Timeout";
 //Get the values in the table corresponding to the from number
-$result = $mysqli->query("SELECT * FROM temp WHERE username = $FROM");
+$result = $mysql->query("SELECT * FROM temp WHERE username = $FROM");
 //Make sure they're IN the table
 $count = count($result);
 //Should be replying with C/c to confirm reservation
@@ -24,12 +24,12 @@ if($BODY == "C" || $BODY == "c"){
             $row = mysqli_fetch_array($result);
             $time = $row['curtime'];
             //delete from temp table
-            $mysqli->query("DELETE FROM temp where username= $FROM");
+            $mysql->query("DELETE FROM temp where username= $FROM");
             //make sure there are no duplicate entries
             //I know there are better ways of doing this but I want to get this working
-            $mysqli->query("DELETE FROM reservations WHERE username = $FROM");
+            $mysql->query("DELETE FROM reservations WHERE username = $FROM");
             //insert into reservation table
-            $mysqli->query("INSERT INTO reservations (username)VALUES ($FROM)");
+            $mysql->query("INSERT INTO reservations (username)VALUES ($FROM)");
         }else
             $msg = "DB result invalid, helper monkeys have been dispatched to figure out what happened."; 
     }else{

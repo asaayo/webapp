@@ -26,7 +26,7 @@ $twiliono = "484-240-4354";
 //creates the actual sms request and sends it off 
 $query = ("DELETE * FROM temp t WHERE t.username=$userno");
 
-$stmt = $mysqli->query("INSERT INTO Suspect (query) values (?)");
+$stmt = $mysql->query("INSERT INTO Suspect (query) values (?)");
 $stmt->bind('s', $query);
 $stmt->execute;
 

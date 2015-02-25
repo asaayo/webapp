@@ -14,13 +14,13 @@ $userno = $_POST['userno'];
 //"MY" phone number
 $twiliono = "484-240-4354";
 //make sure they're still in the DB before we send the text message
-$result = $mysqli->query("SELECT * FROM reservations WHERE username = $userno");
+$result = $mysql->query("SELECT * FROM reservations WHERE username = $userno");
 $count = mysqli_num_rows($result);
 if($count > 0){
     //creates the actual sms request and sends it off
     $sms = $client->account->messages->sendMessage($twiliono, $userno, "Your reservations is ready!");
-    $mysqli->query("DELETE FROM reservations WHERE username = $userno" );
-    $mysqli->query("INSERT INTO tableready (username) VALUES ($userno)" );
+    $mysql->query("DELETE FROM reservations WHERE username = $userno" );
+    $mysql->query("INSERT INTO tableready (username) VALUES ($userno)" );
     echo'Kicked ', $userno, ' out of the database and sent a message';
 }else{
     //They weren't found in the database, should probably refresh
