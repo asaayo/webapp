@@ -130,8 +130,10 @@ function makeReservation(){
     //pulls input user number and strips any formatting
     userno = document.getElementById('cell').value.replace(/[^\w]/gi, '');
     //basic error checking
-    if(userno === ""){
+    if(userno === "" || userno === undefined){
         alert("Unable to make reservation without a valid number");
+    }else if (placename === "" || placename === undefined || placeno === "" || placeno === undefined){
+        alert("No location information provided");
     }else{
         //jquery ajax request, much easier than writing it myself
         $.ajax({

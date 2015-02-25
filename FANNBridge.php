@@ -7,63 +7,68 @@
 
 //debugging
 var_dump($_POST);
-$goodURL = $_POST['good'];
-$badURL = $_POST['bad'];
-$entryValues = NULL;
+$good_url = $_POST['good'];
+$bad_url = $_POST['bad'];
+$entry_values = $_POST;
 $counter = 0;
 
-foreach ($_POST as $key => $value){
-    $entryValues[$key] = $value;
-}
-
-trainNeuralNet($entryValues, count($_POST)-2);
+trainNeuralNet($entry_values, count($_POST)-2);
 
 //setup the destination for the data once it has been read
 //assumes a key 'destination' is passed via post, which is the location legitimate data should be passed to
-//$url = $entryvalues['destination'];
-//$response = http_post_data($url, $entryvalues);
+//$url = $entry_values['destination'];
+//$response = http_post_data($url, $entry_values);
 
 function trainNeuralNet($data, $neuralNets){
     //Values for setting up the neural network(s)
-    $numInput = 2;
-    $numOutput = 1;
-    $numLayers = 3;
-    $numNeuronsHidden = 3;
-    $desiredError = 0.001;
-    $maxEpochs = 500000;
-    $epochsBetweenReports = 1000;
+    $num_input = 2;
+    $num_output = 1;
+    $num_layers = 3;
+    $num_neurons_hidden = 3;
+    $desired_error = 0.0001;
+    $max_epochs = 1000000;
+    $epochs_between_reports = 1000;
     #get the keys of the array so we know which files to create/read
     $keys = array_keys($data);
-    $inputFile = "training data/".$keys[0];
-    $outputFile = "trained nets/".$keys[0];
+    $input_file = "training data/".$keys[0];
+    $output_file = "trained nets/".$keys[0];
     #$ann[$neuralNets];
     
     #create neural networ (starting with one for testing)
-    
-    $ann = fann_create_standard($numLayers, $numInput, $numNeuronsHidden, $numOutput);
-    
+    var_dump($data);
+    $ann = fann_create_standard($num_layers, $num_input, $num_neurons_hidden, $num_output);
+//    if(file_exists($output_file)){
+//        testNeuralNet($data[$keys[0]], $output_file);
+//    }
     if($ann){
         echo "Created ANN!\n";
         fann_set_activation_function_hidden($ann, FANN_SIGMOID_SYMMETRIC);
         fann_set_activation_function_output($ann, FANN_SIGMOID_SYMMETRIC);
         
-        if (fann_train_on_file($ann, $inputFile, $maxEpochs, $epochsBetweenReports, $desiredError)){
+        if (fann_train_on_file($ann, $input_file, $max_epochs, $epochs_between_reports, $desired_error)){
             echo "Trained on data!\n";
-            fileHandler($outputFile, $ann);
+            fileHandler($output_file, $ann);
+            fann_destroy($ann);
+            testNeuralNet($data[$keys[0]], $output_file);
         }else{
             echo "Training on file failed!\n";
-        }
-                        
+        }             
     }else{
         echo "Could not create ANN!\n";
-    }
-    
-
-    
-    
+    }   
 }
 
-function testNeuralNet(){
+function testNeuralNet($data, $train_File){
+    if(file_exists($train_File)){
+        $ann = fann_create_from_file($train_File);
+        if($ann){
+            #echo ($data."\n");
+            $input = array(-1, $data);
+            $calc_output = fann_run($ann, $input);
+            printf("test (%f, %s) -> (%f)\n", $input[0], $input[1], $calc_output[0]);
+            fann_destroy($ann);
+        }
+    }
     
 }
 
@@ -83,14 +88,19 @@ function fileHandler($filename, $ann){
         $fh = fopen($filename, 'w');
         fclose($fh);
         chmod($filename, 0777);
-        fileHandler($filename, $ann);
+        if(is_writable($filename)){
+            fann_save($ann, $filename);
+            echo("File successfully saved \n");
+        }else{
+            die("Cannot write to file to create ANN!\n".$filename."\n");
+        }
     }
     
 }
 
 function finishingUp($destination, $data){
     #acad doesn't support http_post_data, so I had to switch to using HTTP context
-    #$response = http_post_data($goodurl, $data);
+    #$response = http_post_data($goodURL, $data);
     # Form our options
     
     $opts = array('http' =>
@@ -104,4 +114,5 @@ function finishingUp($destination, $data){
     $context = stream_context_create($opts);
     # Get the response (you can use this for GET)
     $result = file_get_contents($destination, false, $context);
+    echo $result."\n";
 }
