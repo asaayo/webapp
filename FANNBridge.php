@@ -6,11 +6,16 @@
 //entryvalues stores the contents of the POST array passed to the file
 
 //debugging
-var_dump($_POST);
+//var_dump($_POST);
 $good_url = $_POST['good'];
 $bad_url = $_POST['bad'];
 $entry_values = $_POST;
 $counter = 0;
+//Due to the way neural networks work, I have to have a way to convert strings to numerical input
+//I choose to use to statistical significance of the occurence of characters in a string
+//countarray[0] = alpha, countarray[1] = numerical, countarray[2] = special characters,
+//countarray[3] = other
+$countarray[4] = 0;
 
 trainNeuralNet($entry_values, count($_POST)-2);
 
@@ -21,21 +26,22 @@ trainNeuralNet($entry_values, count($_POST)-2);
 
 function trainNeuralNet($data, $neuralNets){
     //Values for setting up the neural network(s)
-    $num_input = 2;
+    $num_input = 4;
     $num_output = 1;
     $num_layers = 3;
     $num_neurons_hidden = 3;
     $desired_error = 0.0001;
     $max_epochs = 1000000;
     $epochs_between_reports = 1000;
-    #get the keys of the array so we know which files to create/read
+    //get the keys of the array so we know which files to create/read
     $keys = array_keys($data);
     $input_file = "training data/".$keys[0];
     $output_file = "trained nets/".$keys[0];
-    #$ann[$neuralNets];
+    //$ann[$neuralNets];
     
-    #create neural networ (starting with one for testing)
-    var_dump($data);
+    //create neural networ (starting with one for testing)
+    //more debugging
+    //var_dump($data);
     $ann = fann_create_standard($num_layers, $num_input, $num_neurons_hidden, $num_output);
 //    if(file_exists($output_file)){
 //        testNeuralNet($data[$keys[0]], $output_file);
@@ -59,11 +65,12 @@ function trainNeuralNet($data, $neuralNets){
 }
 
 function testNeuralNet($data, $train_File){
+    toCharArray($data);
     if(file_exists($train_File)){
         $ann = fann_create_from_file($train_File);
         if($ann){
-            #echo ($data."\n");
-            $input = array(-1, $data);
+            //echo ($data."\n");
+            $input = $countarray;
             $calc_output = fann_run($ann, $input);
             printf("test (%f, %s) -> (%f)\n", $input[0], $input[1], $calc_output[0]);
             fann_destroy($ann);
@@ -72,9 +79,8 @@ function testNeuralNet($data, $train_File){
     
 }
 
-#Filehandler handles the creation of the neural net files
-#If file doesn't already exist, filehandler creates the file then re-calls 
-#itself to save the neural net
+//Filehandler handles the creation of the neural net files
+//If file doesn't already exist, filehandler creates it
 function fileHandler($filename, $ann){
     if(file_exists($filename)){
         if(is_writable($filename)){
@@ -98,10 +104,32 @@ function fileHandler($filename, $ann){
     
 }
 
+function toCharArray($input){
+    $temp = str_split($input);
+    foreach($temp as $value){
+        $tempvalue = ord($value);
+        
+        if(($tempvalue >= 65 && $tempvalue <= 90) || ($tempvalue >= 97 && $tempvalue <= 122)){
+            $countarray[0]++;
+        }else if ($tempvalue >= 48 && $tempvalue <= 57){
+            $countarray[1]++;
+        }else if ($tempvale >= 33 && $tempvalue <= 127){
+            $countarray[2]++;
+        }else{
+            $countarray[3]++;
+        }
+    }
+    $count = count($countarray);
+    for($i = 0; $i <= count; $i++){
+        $countarray[i] = $countarray[i] / $count;
+    }
+    
+}
+
 function finishingUp($destination, $data){
-    #acad doesn't support http_post_data, so I had to switch to using HTTP context
-    #$response = http_post_data($goodURL, $data);
-    # Form our options
+    //acad doesn't support http_post_data, so I had to switch to using HTTP context
+    //$response = http_post_data($goodURL, $data);
+    // Form our options
     
     $opts = array('http' =>
         array(
@@ -110,9 +138,9 @@ function finishingUp($destination, $data){
             'content' => $data
         )
     );
-    # Create the context
+    // Create the context
     $context = stream_context_create($opts);
-    # Get the response (you can use this for GET)
+    // Get the response (you can use this for GET)
     $result = file_get_contents($destination, false, $context);
     echo $result."\n";
 }
