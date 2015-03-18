@@ -1,6 +1,6 @@
 <?php
 
-var_dump($_POST);
+//var_dump($_POST);
 //requred for database access
 require("dp.php");
 
@@ -30,4 +30,6 @@ $stmt = $mysql->query("INSERT INTO Suspect (query) values (?)");
 $stmt->bind('s', $query);
 $stmt->execute;
 
-$sms = $client->account->messages->sendMessage($twiliono, $DEV_NO, "Suspect query follows: ".$query);
+//$sms = $client->account->messages->sendMessage($twiliono, $DEV_NO, "Suspect query follows: ".$query);
+
+?>

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/New_York');
 //db information
 $user = "btrum818";
 $pw = "1.e4c52.Nf3";
