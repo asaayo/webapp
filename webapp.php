@@ -43,12 +43,12 @@
             </form>
         </div>
         
-        <footer>
+        <!--<footer>
             <div id="footerbar" class="extendfull">
                 Footer content &copy; a guy<br/>
                 By reading this, your soul becomes property of a guy.
             </div>
-        </footer>
+        </footer>-->
         <div id="debug">
             
         </div>

@@ -7,14 +7,16 @@
 
 //debugging
 //var_dump($_POST);
-$good_url = $_POST['good'];
-$bad_url = $_POST['bad'];
+//hardcoding some entries to make testing possible
+$good_url = "reservation.php";
+$bad_url = "suspect.php";
 $entry_values = $_POST;
+
 $counter = 0;
 //Due to the way neural networks work, I have to have a way to convert strings to numerical input
 //I choose to use to statistical significance of the occurence of characters in a string
 //countarray[0] = alpha, countarray[1] = numerical, countarray[2] = special characters,
-//countarray[3] = other, countarray[4] = number of characters
+//countarray[3] = other/space, countarray[4] = number of characters
 $countarray = array(0,0,0,0,0);
 
 trainNeuralNet($entry_values, count($_POST)-2);
@@ -34,7 +36,7 @@ function trainNeuralNet($data, $neuralNets){
     $max_epochs = 1000000;
     $epochs_between_reports = 1000;
     //get the keys of the array so we know which files to create/read
-    $keys = array_keys($data);
+    $keys = array("name","number","identifier","user","bad","good");
     $input_file = "training data/".$keys[0]."~";
     $output_file = "trained nets/".$keys[0];
     echo $input_file."\n";
@@ -162,5 +164,5 @@ function finishingUp($destination, $data){
     if(curl_errno($ch)){
         echo 'Curl error: ' . curl_error($ch);
     }
-    echo $result;
+    //echo $result;
 }
