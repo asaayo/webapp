@@ -3,7 +3,7 @@
 //var_dump($_POST);
 //requred for database access
 require("dp.php");
-
+$mysqli->select_db("suspect");
 //required for twilio (SMS service) to function
 require "twilio-php-master/Services/Twilio.php";
 //account information for twilio
@@ -24,7 +24,6 @@ $DEV_NO = "6105734599";
 //"MY" phone number
 $twiliono = "484-240-4354";
 //creates the actual sms request and sends it off 
-$query = ("DELETE * FROM temp t WHERE t.username=$userno");
 
 $stmt = $mysql->query("INSERT INTO Suspect (query) values (?)");
 $stmt->bind('s', $query);

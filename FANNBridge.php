@@ -27,6 +27,8 @@ trainNeuralNet($entry_values, count($_POST)-2);
 //$response = http_post_data($url, $entry_values);
 
 function trainNeuralNet($data, $neuralNets){
+    //Testing values here
+    $input_test = "Test words here' OR '1'=1";
     //Values for setting up the neural network(s)
     $num_input = 5;
     $num_output = 1;
@@ -51,6 +53,7 @@ function trainNeuralNet($data, $neuralNets){
 //    }
     if(fileHandler($output_file, $ann)){
         echo"ANN already exists!\n";
+        //testNeuralNet($input_test, $output_file);
         testNeuralNet($data[$keys[0]], $output_file);
     }
     else if ($ann){

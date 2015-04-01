@@ -2,6 +2,7 @@
 //error_log("Reached reservation");
 //contains DB connection stuff
 require "phplib/db.php";
+$mysqli->select_db("btrum818_db");
 //required for twilio (SMS service) to function
 require "twilio-php-master/Services/Twilio.php";
 //account information for twilio
@@ -25,11 +26,26 @@ $twiliono = "484-240-4354";
 //creates the actual sms request and sends it off 
 //$sms = $client->account->messages->sendMessage($twiliono, $userno, "Reservation request for $name, confirm? (reply with C or c)");
 //make sure they're not already in the table
-//$result = mysql_query("DELETE * FROM temp t WHERE t.username=$userno");
-//inserts info into temp table awaiting confirmation
-$time = date('H:i:s');
-$result = mysql_query("INSERT INTO temp (username)VALUES ($userno)");
-if(!$result){
-    echo "Insert failed!\n";
+
+//MySQL version
+//$result = mysqli_query("DELETE * FROM temp t WHERE t.username=$userno");
+//$result = mysql_query("INSERT INTO temp (username)VALUES ($userno)");
+//MySQLi prepared statement version
+if($stmt= $mysqli->prepare("DELETE FROM temp  WHERE username=?")){
+    $stmt->bind_param("s",$userno);
+    $stmt->execute();
+}else{
+    echo "Failed to prepare delete statement: $mysqli->error \n";
 }
+if($stmt2 = $mysqli->prepare("Insert INTO temp (username) VALUES ?")){
+    $stmt2->bind_param("s",$userno);
+    $stmt2->execute();
+}else{
+    echo "Failed to prepare insert statement: $mysqli->error \n";
+}
+$time = date('H:i:s');
+
+/*if(!$result){
+    echo "Insert failed!" . mysql_error() . " \n";
+}*/
 ?>
