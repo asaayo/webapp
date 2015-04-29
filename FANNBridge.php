@@ -11,6 +11,7 @@
 $good_url = "reservation.php";
 $bad_url = "suspect.php";
 $entry_values = $_POST;
+$SUPER_START=microtime(true);
 
 $counter = 0;
 //Due to the way neural networks work, I have to have a way to convert strings to numerical input
@@ -27,8 +28,7 @@ trainNeuralNet($entry_values, count($_POST)-2);
 //$response = http_post_data($url, $entry_values);
 
 function trainNeuralNet($data, $neuralNets){
-    //Testing values here
-    $input_test = "Test words here' OR '1'=1";
+    $start = microtime(true);
     //Values for setting up the neural network(s)
     $num_input = 5;
     $num_output = 1;
@@ -39,9 +39,12 @@ function trainNeuralNet($data, $neuralNets){
     $epochs_between_reports = 1000;
     //get the keys of the array so we know which files to create/read
     $keys = array("name","number","identifier","user","bad","good");
+    //Testing values here
+    //$input_test = $data[$keys[0]] ."' OR '1'=1";
+    $input_test = $data[$keys[0]];
     $input_file = "training data/".$keys[0]."~";
     $output_file = "trained nets/".$keys[0];
-    echo $input_file."\n";
+    echo "Input file: $input_file \n";
     //$ann[$neuralNets];
     
     //create neural networ (starting with one for testing)
@@ -54,7 +57,8 @@ function trainNeuralNet($data, $neuralNets){
     if(fileHandler($output_file, $ann)){
         echo"ANN already exists!\n";
         //testNeuralNet($input_test, $output_file);
-        testNeuralNet($data[$keys[0]], $output_file);
+        testNeuralNet($input_test, $output_file);
+        //testNeuralNet($data[$keys[0]], $output_file);
     }
     else if ($ann){
         echo "Created ANN!\n";
@@ -64,32 +68,39 @@ function trainNeuralNet($data, $neuralNets){
         if (fann_train_on_file($ann, $input_file, $max_epochs, $epochs_between_reports, $desired_error)){
             echo "Trained on data!\n";
             fileHandler($output_file, $ann);
+            echo "Training NN: ";
+            finalTimer($start);
             fann_destroy($ann);
-            testNeuralNet($data[$keys[0]], $output_file);
+            testNeuralNet($input_test, $output_file);
+            //testNeuralNet($data[$keys[0]], $output_file);
         }else{
             echo "Training on file failed!\n";
         }             
     }else{
         echo "Could not create ANN!\n";
-    }   
+    }
 }
 
 function testNeuralNet($data, $train_File){
+    $start = microtime(true);
     toCharArray($data);
-    echo $data."\n";
+    //echo $data."\n";
     if(file_exists($train_File)){
         $ann = fann_create_from_file($train_File);
         if($ann){
             global $countarray;
             $input = $countarray;
-            foreach($input as $key => $value)
-                echo $key." => ".$value."\n";
+            //foreach($input as $key => $value)
+            //    echo $key." => ".$value."\n";
             //all the debugging!
             //var_dump($countarray);
             $calc_output = fann_run($ann, $input);
-            printf("Output: (%f)\n", $calc_output[0]);
+            printf("Input : %s Output: (%f)\n", $data, $calc_output[0]);
+            error_log("Input: $data Output: $calc_output[0]]");
             fann_destroy($ann);
             global $good_url, $bad_url, $entry_values;
+            echo "TESTNN: ";
+            finalTimer($start);
             if($calc_output[0] >= .250){
                 finishingUp($good_url, $entry_values);                
             }else{
@@ -133,7 +144,7 @@ function fileHandler($filename, $ann){
 function toCharArray($input){
     $temp = str_split($input);
     $count = strlen($input);
-    echo $count."\n";
+    //echo $count."\n";
     global $countarray;
     $countarray[4]=$count;
     foreach($temp as $value){        
@@ -155,6 +166,7 @@ function toCharArray($input){
 }
 
 function finishingUp($destination, $data){
+    global $SUPER_START;
     $data_string = "";
     echo ("Finishing up, destination: ".$destination."\n");
     foreach($data as $key=>$value) { $data_string .= $key.'='.$value.'&'; }
@@ -167,5 +179,14 @@ function finishingUp($destination, $data){
     if(curl_errno($ch)){
         echo 'Curl error: ' . curl_error($ch);
     }
+    echo"FINAL TIMER: ";
+    finalTimer($SUPER_START);
     //echo $result;
+}
+
+function finalTimer($start){
+    $end = microtime(true);
+    //echo "$start \n";
+    //echo "$end \n";
+    echo $end - $start . "s \n";
 }

@@ -1,4 +1,5 @@
 <?php
+$SUPER_START = microtime(true);
 //error_log("Reached reservation");
 //contains DB connection stuff
 require "phplib/db.php";
@@ -28,24 +29,43 @@ $twiliono = "484-240-4354";
 //make sure they're not already in the table
 
 //MySQL version
-//$result = mysqli_query("DELETE * FROM temp t WHERE t.username=$userno");
-//$result = mysql_query("INSERT INTO temp (username)VALUES ($userno)");
+$deletestart = microtime(true);
+$result = mysqli_query($mysqli,"DELETE * FROM temp t WHERE t.username=$userno");
+echo"Delete: ";
+finaltimer($deletestart);
+$insertstart = microtime(true);
+$result = mysqli_query($mysqli,"INSERT INTO temp (username)VALUES ($userno)");
+echo"Insert: ";
+finaltimer($insertstart);
 //MySQLi prepared statement version
+/*
+$deletestart = microtime(true);
 if($stmt= $mysqli->prepare("DELETE FROM temp  WHERE username=?")){
     $stmt->bind_param("s",$userno);
     $stmt->execute();
 }else{
     echo "Failed to prepare delete statement: $mysqli->error \n";
 }
-if($stmt2 = $mysqli->prepare("Insert INTO temp (username) VALUES ?")){
+echo "Delete timer: ";
+finaltimer($deletestart);
+$insertstart = microtime(true);
+if($stmt2 = $mysqli->prepare("Insert INTO temp (username) VALUES (?)")){
     $stmt2->bind_param("s",$userno);
     $stmt2->execute();
 }else{
     echo "Failed to prepare insert statement: $mysqli->error \n";
 }
-$time = date('H:i:s');
+echo"Insert timer: ";
+finaltimer($insertstart);
+ */
+$mysqli->close();
 
-/*if(!$result){
-    echo "Insert failed!" . mysql_error() . " \n";
-}*/
+echo"Reservation timer: ";
+finalTimer($SUPER_START);
+function finalTimer($start){
+    $end = microtime(true);
+    //echo "$start \n";
+    //echo "$end \n";
+    echo $end - $start . "s \n";
+}
 ?>
