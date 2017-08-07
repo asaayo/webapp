@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="css/mobile.css" media="only screen and (-webkit-min-device-pixel-ratio: 2)">
         <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
         <script src="assets/jquery-2.0.3.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?&libraries=places&sensor=false&key=AIzaSyDI-yfR23sWWb5QdLsVxK0dImRt5OJckPU"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?&libraries=places&key=AIzaSyDI-yfR23sWWb5QdLsVxK0dImRt5OJckPU"></script>
         <script src="assets/places.php"></script>
     </head>
     <body>

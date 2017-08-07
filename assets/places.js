@@ -1,6 +1,6 @@
 var success = false;
 var urlp1="http://maps.googleapis.com/maps/api/staticmap?center=";
-var urlp2="&zoom=12&size=400x400&sensor=true&markers=color:red%7C";
+var urlp2="&zoom=12&size=400x400&markers=color:red%7C";
 var map;
 var service;
 var infowindow;
